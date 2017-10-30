@@ -4,7 +4,7 @@
 
 * ### Christopher Tran
   #### RIT Computer Security Class of 2018
-  #### tt1414@rit.edu
+  #### ctt1414@rit.edu
 
 * ### Alex Lunderman
   #### RIT Computer Security Class of 2018
