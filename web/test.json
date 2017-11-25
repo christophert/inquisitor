@@ -1,0 +1,32 @@
+{
+    "IPAddress" : "192.168.10.3",
+    "MACAddress" : "E0-43-DB-65-23-91",
+    "NumHosts" : "0",
+    "Ports" : "20, 23, 53, 79",
+    "RiskRating" : "8",
+    "Malicious" : "true"
+}
+{
+    "IPAddress" : "192.168.10.16",
+    "MACAddress" : "24-05-F5-83-23-4A",
+    "NumHosts" : "1",
+    "Ports" : "20, 53",
+    "RiskRating" : "2",
+    "Malicious" : "false"
+}
+{
+    "IPAddress" : "159.100.10.1",
+    "MACAddress" : "3C-D9-2B-6N-F3-G1",
+    "NumHosts" : "10",
+    "Ports" : "20, 23, 53, 79, 85",
+    "RiskRating" : "1",
+    "Malicious" : "false"
+}
+{
+    "IPAddress" : "172.168.10.33",
+    "MACAddress" : "24-05-F5-83-23-4A",
+    "NumHosts" : "0",
+    "Ports" : "20, 53, 79",
+    "RiskRating" : "5",
+    "Malicious" : "false"
+}
