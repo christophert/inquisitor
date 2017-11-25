@@ -1,5 +1,2 @@
-scipy
-numpy
-matplotlib
-pandas
-sklearn
+sqlalchemy
+python-libnmap
