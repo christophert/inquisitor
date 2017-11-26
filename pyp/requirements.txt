@@ -1,2 +1,5 @@
+flask
+autobahn
 sqlalchemy
 python-libnmap
+manuf
