@@ -1,5 +1,10 @@
 /* This script reads the JSON data file from the web server */
 
+//$.ajax({
+    //url: '/api/start_scan_thread',
+    //type: 'GET'
+//});
+
 /* Declare the name of your json file */
 var url = "test.json";
 

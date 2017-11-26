@@ -2,7 +2,7 @@
     "IPAddress" : "192.168.10.3",
     "MACAddress" : "E0-43-DB-65-23-91",
     "NumHosts" : "0",
-    "Ports" : "20, 23, 53, 79",
+    "Ports" : "20, 23, 53, 80",
     "RiskRating" : "8",
     "Malicious" : "true"
 }
@@ -16,17 +16,17 @@
 }
 {
     "IPAddress" : "159.100.10.1",
-    "MACAddress" : "3C-D9-2B-6N-F3-G1",
-    "NumHosts" : "10",
-    "Ports" : "20, 23, 53, 79, 85",
+    "MACAddress" : "3C-D9-2B-6F-F3-A1",
+    "NumHosts" : "1",
+    "Ports" : "20, 23, 53, 80, 443",
     "RiskRating" : "1",
     "Malicious" : "false"
 }
 {
     "IPAddress" : "172.168.10.33",
     "MACAddress" : "24-05-F5-83-23-4A",
-    "NumHosts" : "0",
-    "Ports" : "20, 53, 79",
+    "NumHosts" : "1",
+    "Ports" : "20, 53, 80",
     "RiskRating" : "5",
     "Malicious" : "false"
 }
