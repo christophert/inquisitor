@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Host to Database</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <!-- The Top Navigation Bar -->
+    <div class="navbar"></div>
+
+    <h1>INQUISITOR</h1>
+    <h3>Alexandria Lunderman and Chris Tran</h3>
+
+    <div id="container">
+        <div id="compList">
+            <form method="POST" action="/api/hosts">
+                <input type="text" name="hostname">
+                <input type="text" name="ip_addr">
+                <input type="text" name="mac_address">
+                <select name="os">
+                    <option name="Windows">Windows</option>
+                    <option name="Mac">Mac</option>
+                    <option name="Linux">Linux</option>
+                </select>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
