@@ -1,5 +1,6 @@
 from multiprocessing import Process
 import nmap_scanning
+import ntop_actions
 from sqlbase import HostProfile, ScanRecord, db
 import time
 import json
@@ -12,8 +13,13 @@ class ScanningProcess:
 
     def run(self):
         while True:
+            traffic_stats = ntop_actions.get_traffic_data()
             hosts = HostProfile.query.all()
             for host in hosts:
+                if host.ip_addr in traffic_stats:
+                    if traffic_stats[host.ip_addr] > 100000000000:
+                        host.warning = 1
+                        db.session.add(host)
                 scanning_record = nmap_scanning.init_scan(str(host.ip_addr))
                 tmp_scanrd = ScanRecord(host_profile_id=host.id, os_cpe_result=json.dumps(scanning_record), os_cpe_match=False)
                 if len(scanning_record['cpe']) > 0:
