@@ -8,7 +8,7 @@ if not os.geteuid() == 0:
     sys.exit('Script must be run as root')
 
 #import twisted HTTP libraries
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, render_template
 from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlbase import db, init_db, ScanRecord, HostProfile
@@ -25,6 +25,14 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/inquisitor.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 init_db(app)
+
+@app.route('/')
+def root_page():
+    return render_template('index.html');
+
+@app.route('/newhost')
+def newhost_page():
+    return render_template('new.html');
 
 @app.route('/api/start_scan_thread', methods=['GET'])
 def start_scan():

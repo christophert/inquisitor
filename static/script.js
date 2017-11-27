@@ -6,7 +6,7 @@
 //});
 
 /* Declare the name of your json file */
-var url = "test.json";
+var url = "/static/test.json";
 
 /* Create an XMLHttpRequest object to reqest data from a web server */
 /* (the name of the request class has the legacy 'XML...' ) */
@@ -53,10 +53,10 @@ function myFunction(arr) {
     for(i = 0; i < arr.length; i++) {
         // Determine which img to use
         if(arr[i].Malicious == 'true') {
-            compImg = "BadComp.png";
+            compImg = "/static/BadComp.png";
         }
         else if(arr[i].Malicious == 'false') {
-            compImg = "GoodComp.png";
+            compImg = "/static/GoodComp.png";
         }
 
         // Set all variables
