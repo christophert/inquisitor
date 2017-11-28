@@ -76,28 +76,5 @@ def make_hosts():
     db.session.commit()
     return jsonify(tmp_scanrd.serialize())
 
-# class NewHostPage(Resource):
-    # def render_GET(self, request):
-        # return session.query(HostProfile).all() 
-    # def render_POST(self, request):
-        # tmp = HostProfile(hostname=request.args["hostname"][0], ip_addr=request.args["ip_addr"][0], mac_address = request.args["mac_address"][0], os = request.args["os"][0], risk_rating=0, warning=0)
-
-        # # tmp = p.get_manuf(request.args["mac_address"])
-        # # print tmp
-        # session.add(tmp)
-        # session.commit()
-        # session.refresh(tmp)
-
-        # #scan the host
-        # scan_return = nmap_scanning.init_scan(request.args["ip_addr"][0])
-        # tmp_scanrd = ScanRecord(host_profile_id=tmp.id, os_cpe_result=json.dumps(scan_return), os_cpe_match=False)
-        # if len(scan_return['cpe']) > 0:
-            # for i in scan_return['cpe']:
-                # if tmp.os.lower() in i:
-                    # tmp_scanrd.os_cpe_match=True
-        # session.add(tmp_scanrd)
-        # session.commit()
-        # return tmp_scanrd.json()
-
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', threaded=True)

@@ -1,97 +1,92 @@
 /* This script reads the JSON data file from the web server */
 
-//$.ajax({
-    //url: '/api/start_scan_thread',
-    //type: 'GET'
-//});
-
-/* Declare the name of your json file */
-var url = "/static/test.json";
-
-/* Create an XMLHttpRequest object to reqest data from a web server */
-/* (the name of the request class has the legacy 'XML...' ) */
-/* because it first read only XML data                      */
-var httpObj = new XMLHttpRequest();
-
-/* This function is called every time the status of the request object changes */
-/* When the readystate is 4, and the status is 200, the response is ready */
-/* (in other words, information is back from the server) */
-httpObj.onreadystatechange = function() {
-    if (httpObj.readyState == 4 && httpObj.status == 200) {
-        /* read the response into the variable 'myArr' */
-        var myArr = JSON.parse(httpObj.responseText);
-        /* process the data you received from the response */
-        myFunction(myArr);
-    }
-};
-
-/* the open method specifies the type of http request  */
-/*  --- we want to use GET (not POST),                 */
-/*  --- we send the name of the file to get            */
-/*  --- we use 'true' for an asynchronous request      */
-httpObj.open("GET", url, true);
-/* the send method with no parameters is used for GET  */
-httpObj.send();
-/*-----------------------------------------------------*/
+$.ajax({
+    url: '/api/start_scan_thread',
+    type: 'GET'
+});
 
 /* function that processes the data received from the response */
-function myFunction(arr) {
-    /* create a variable to hold an html string */
-    var out = "";
-    var info = "";
-    var i;
-    var div = "";
-    var compImg;
-    var ipAddress;
-    var macAddress;
-    var numHosts;
-    var ports;
-    var riskRating;
+$.ajax({
+    url: '/api/hosts',
+    type: 'GET',
+    success: function(arr) {
+        hosts = arr['json_list'];
 
-    console.log(arr);
-
-    for(i = 0; i < arr.length; i++) {
-        // Determine which img to use
-        if(arr[i].Malicious == 'true') {
-            compImg = "/static/BadComp.png";
+        if(hosts.length <= 0) {
+            $('#compList').append("<div class='compCard'>No Hosts added. <a href='/newhost'>Add a host</a></div>");
         }
-        else if(arr[i].Malicious == 'false') {
-            compImg = "/static/GoodComp.png";
+        /* create a variable to hold an html string */
+        var out = "";
+        var info = "";
+        var i;
+        var div = "";
+        var compImg;
+        var ipAddress;
+        var macAddress;
+        var numHosts;
+        var ports;
+        var riskRating;
+
+        console.log(hosts);
+
+        for(i = 0; i < hosts.length; i++) {
+            // Determine which img to use
+            if(hosts[i].warning == 1) {
+                compImg = "/static/BadComp.png";
+            }
+            else if(hosts[i].warning == 0) {
+                compImg = "/static/GoodComp.png";
+            }
+
+            // Set all variables
+            ipAddress = hosts[i].ip_addr;
+            macAddress = hosts[i].mac_address;
+            ports = hosts[i].Ports;
+            riskRating = hosts[i].risk_rating;
+
+            // Create computer cards
+            out +=
+                "<div class='compCard' id='card" + i + "' onmouseover='showInfo(" + i + ")' onmouseout='hideInfo(" + i + ")'>" +
+                    "<img src='" + compImg + "' class='compIcon' />" +
+                "</div>";
+
+            // Create divs that will display the computer info
+            info +=
+                "<div class='infoDivs' id='comp" + i + "' style='display: none;'>" +
+                "<p><span class='label'>IP Address: </span> " + hosts[i].ip_addr + "<br/>" +
+                "<span class='label'>MAC Address: </span> " + hosts[i].mac_address + "<br/>" +
+                "<span class='label'>OS: </span> " + hosts[i].os + "<br/>" +
+                "<span class='label'>Ports: </span> " + hosts[i].ports + "<br/>" +
+                "<span class='label'>Risk Rating: </span> " + hosts[i].risk_rating + "</p></div>";
+
+            $.ajax({
+                url: '/api/hosts/'+(i+1),
+                type: 'GET',
+                success: function(data) {
+                    scans = data['scans'];
+                    scaninfo = "<div class='infoDivs' id='comp-scan" + (data.host_information.id-1) + "' style='display:none'><p><span class='label'>Scans: </span><ul>";
+                    for(var j = 0; j < scans.length; j++) {
+                        scaninfo += "<li>Scanned " + scans[j].created_at + " with fingerprint " + (scans[j].os_cpe_match ? "match" : "mismatch") + "</li>";
+                    }
+                    scaninfo += "</ul></p></div>";
+                    $('#info').append(scaninfo);
+                }
+            });
+
         }
 
-        // Set all variables
-        ipAddress = arr[i].IPAddress;
-        macAddress = arr[i].MACAddress;
-        numHosts = arr[i].NumHosts;
-        ports = arr[i].Ports;
-        riskRating = arr[i].RiskRating;
-
-        // Create computer cards
-        out +=
-            "<div class='compCard' id='card" + i + "' onmouseover='showInfo(" + i + ")' onmouseout='hideInfo(" + i + ")'>" +
-                "<img src='" + compImg + "' class='compIcon' />" +
-            "</div>";
-
-        // Create divs that will display the computer info
-        info +=
-            "<div class='infoDivs' id='comp" + i + "' style='display: none;'>" +
-            "<p><span class='label'>IP Address: </span> " + arr[i].IPAddress + "<br/>" +
-            "<span class='label'>MAC Address: </span> " + arr[i].MACAddress + "<br/>" +
-            "<span class='label'>Num Hosts: </span> " + arr[i].NumHosts + "<br/>" +
-            "<span class='label'>Ports: </span> " + arr[i].Ports + "<br/>" +
-            "<span class='label'>Risk Rating: </span> " + arr[i].RiskRating + "</p></div>";
-
+        // Add divs to dom
+        $('#compList').append(out);
+        $('#info').append(info);
     }
-
-    // Add divs to dom
-    $('#compList').append(out);
-    $('#info').append(info);
-}
+});
 
 function showInfo(i) {
     $('#comp' + i).toggle();
+    $('#comp-scan' + i).toggle();
 }
 
 function hideInfo(i) {
     $('#comp' + i).hide();
+    $('#comp-scan' + i).hide();
 }
