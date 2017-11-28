@@ -3,31 +3,92 @@
 <head>
     <title>Add New Host to Database</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/static/script.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/bootstrap-template.css">
 </head>
 
 <body>
-    <!-- The Top Navigation Bar -->
-    <div class="navbar"></div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Inquisitor</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <h1>INQUISITOR</h1>
-    <h3>Alexandria Lunderman and Chris Tran</h3>
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/newhost">Add New Host</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-    <div id="container">
-        <div id="compList">
-            <form method="POST" action="/api/hosts">
-                <input type="text" name="hostname">
-                <input type="text" name="ip_addr">
-                <input type="text" name="mac_address">
-                <select name="os">
-                    <option name="Windows">Windows</option>
-                    <option name="Mac">Mac</option>
-                    <option name="Linux">Linux</option>
+    <main role="main" class="container">
+        <div id="alert"></div>
+      <div class="starter-template">
+        <h1>Add new host</h1>
+        <form class="form" id="addhost-form">
+            <div class="form-group">
+                <label for="hostname">Hostname</label>
+                <input type="text" name="hostname" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="ip_addr">IP Address</label>
+                <input type="text" name="ip_addr" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="mac_address">MAC Address</label>
+                <input type="text" name="mac_address" class="form-control" placeholder="aa:bb:cc:dd:ee:ff">
+            </div>
+            <div class="form-group">
+                <label for="os">Operating System</label>
+                <select class="form-control" name="os">
+                    <option>Windows</option>
+                    <option>Mac</option>
+                    <option>Linux</option>
                 </select>
-            </form>
-        </div>
-    </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Host</button>
+            <button class="btn" id="addhost-clear">Clear</button>
+        </form>
+      </div>
+
+    </main><!-- /.container -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#addhost-form').on('submit', function(e) {
+                $('#alert').addClass('alert alert-info').html('Submitted...please wait.').show();
+                e.preventDefault();
+                var data = {
+                    'hostname': $('#addhost-form input[name=hostname]').val(),
+                    'ip_addr': $('#addhost-form input[name=ip_addr]').val(),
+                    'mac_address': $('#addhost-form input[name=mac_address]').val(),
+                    'os': $('#addhost-form select[name=os]').val()
+                }
+                $.ajax({
+                    url: '/api/hosts',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    success: function(data) {
+                        $('#alert').attr('class', '').html('').hide();
+                        $('#alert').addClass('alert alert-success').html('Host successfully added!').show();
+                        setTimeout(function() { $('#addhost-form').find('input').val(''); $('#alert').attr('class', '').html('').hide() }, 5000);
+                    }
+                });
+            });
+            $('#addhost-clear').on('click', function() {
+                $('#addhost-form').find('input').val('');
+            });
+        });
+    </script>
 </body>
 </html>
