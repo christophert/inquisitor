@@ -25,6 +25,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/inquisitor.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 init_db(app)
+global s
+s = None
 
 @app.route('/')
 def root_page():
@@ -36,7 +38,11 @@ def newhost_page():
 
 @app.route('/api/start_scan_thread', methods=['GET'])
 def start_scan():
-    s = ScanningProcess()
+    global s
+    if s is None:
+        s = ScanningProcess()
+    else:
+        return jsonify({"running": True})
     return jsonify({"start": True})
 
 
