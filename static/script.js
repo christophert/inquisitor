@@ -41,7 +41,6 @@ $.ajax({
             // Set all variables
             ipAddress = hosts[i].ip_addr;
             macAddress = hosts[i].mac_address;
-            ports = hosts[i].Ports;
             riskRating = hosts[i].risk_rating;
 
             // Create computer cards
@@ -56,7 +55,7 @@ $.ajax({
                 "<p><span class='label'>IP Address: </span> " + hosts[i].ip_addr + "<br/>" +
                 "<span class='label'>MAC Address: </span> " + hosts[i].mac_address + "<br/>" +
                 "<span class='label'>OS: </span> " + hosts[i].os + "<br/>" +
-                "<span class='label'>Ports: </span> " + hosts[i].ports + "<br/>" +
+                "<span class='label'>Ports: </span> " + hosts[i].open_ports + "<br/>" +
                 "<span class='label'>Risk Rating: </span> " + hosts[i].risk_rating + "</p></div>";
 
             $.ajax({

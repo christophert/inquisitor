@@ -78,6 +78,11 @@ def make_hosts():
         for i in scan_return['cpe']:
             if tmp.os.lower() in i:
                 tmp_scanrd.os_cpe_match=True
+        if not tmp_scanrd.os_cpe_match:
+            tmp.warning = 1
+            db.session.add(tmp)
+        if len(scan_return['open_ports']) > 0:
+            tmp.open_ports = json.dumps(scan_return['open_ports'])
     db.session.add(tmp_scanrd)
     db.session.commit()
     return jsonify(tmp_scanrd.serialize())

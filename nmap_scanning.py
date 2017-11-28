@@ -18,7 +18,8 @@ def init_scan(target):
 
     for host in parsed.hosts:
         if host.is_up():
-            retarray = {'ip': host.address, 'cpe': []}
+            retarray = {'ip': host.address, 'cpe': [], 'open_ports': []}
+            retarray['open_ports'] = host.get_open_ports()
             if host.os_fingerprinted:
                 for osm in host.os.osmatches:
                     print "Name: %s Accuracy: %s" % (osm.name, str(osm.accuracy))

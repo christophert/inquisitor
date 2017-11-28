@@ -26,6 +26,9 @@ class ScanningProcess:
                     for i in scanning_record['cpe']:
                         if host.os.lower() in i:
                             tmp_scanrd.os_cpe_match=True
+                if len(scanning_record['open_ports']) > 0:
+                    host.open_ports = scanning_record['open_ports']
+                    db.session.add(host)
                 if tmp_scanrd.os_cpe_match is False:
                     host.warning = 1 
                     db.session.add(host)

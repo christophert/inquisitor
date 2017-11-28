@@ -41,9 +41,10 @@ class HostProfile(db.Model, Serializer):
     risk_rating = db.Column(db.Integer)
     warning = db.Column(db.Integer, default=0)
     manuf = db.Column(db.String)
+    open_ports = db.Column(db.String, nullable=True)
 
     def __repr__(self):
-        return "<HostProfile(hostname='%s', ip_addr='%s', mac_address='%s', os='%s', last_seen_good='%s', last_seen_rogue='%s', risk_rating='%s', warning='%d', manuf='%s')>" % (self.hostname, self.ip_addr, self.mac_address, self.os, self.last_seen_good, self.last_seen_rogue, self.risk_rating, self.warning, self.manuf)
+        return "<HostProfile(hostname='%s', ip_addr='%s', mac_address='%s', os='%s', last_seen_good='%s', last_seen_rogue='%s', risk_rating='%s', warning='%d', manuf='%s', open_ports='%s')>" % (self.hostname, self.ip_addr, self.mac_address, self.os, self.last_seen_good, self.last_seen_rogue, self.risk_rating, self.warning, self.manuf, self.open_ports)
 
 def init_db(app):
     with app.app_context():
