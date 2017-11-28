@@ -1,11 +1,12 @@
 import requests
+import config
 import pprint
 import json
 import re
 
 cookies = {
-    'user': 'admin',
-    'password': 'password',
+    'user': config.NTOPNG_USERNAME,
+    'password': config.NTOPNG_PASSWORD,
 }
 
 headers = {
@@ -24,7 +25,7 @@ params = (
 
 def get_traffic_data():
     try:
-        r = requests.get('http://172.19.124.137:3000/lua/get_hosts_data.lua', headers=headers, params=params, cookies=cookies)
+        r = requests.get(config.NTOPNG_HOST_URL+'/lua/get_hosts_data.lua', headers=headers, params=params, cookies=cookies)
         jr = r.json() 
         ret = {}
         for i in jr['data']:
