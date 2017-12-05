@@ -34,4 +34,4 @@ class ScanningProcess:
                     db.session.add(host)
                 db.session.add(tmp_scanrd)
                 db.session.commit()
-            time.sleep(300)
+            time.sleep(3600)

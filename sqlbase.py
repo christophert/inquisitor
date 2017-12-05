@@ -24,6 +24,7 @@ class ScanRecord(db.Model, Serializer):
     os_cpe_result = db.Column(db.String)
     os_cpe_match = db.Column(db.Boolean)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    created_at_hour = db.Column(db.Integer, default=int(datetime.datetime.today().strftime('%H')))
 
     def __repr__(self):
         return "<ScanRecord(host_profile_id='%d', os_cpe_result='%s', os_cpe_match='%s', created_at='%s')>" % (self.host_profile_id, self.os_cpe_result, self.os_cpe_match, self.created_at)

@@ -36,6 +36,10 @@ def root_page():
 def newhost_page():
     return render_template('new.html');
 
+@app.route('/bar')
+def bar_page():
+    return render_template('bar-chart.html');
+
 @app.route('/api/start_scan_thread', methods=['GET'])
 def start_scan():
     global s
