@@ -3,26 +3,39 @@
 <head>
     <title>Malicious Computers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/bootstrap-template.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="/static/script.js"></script>
 </head>
 
 <body>
     <!-- The Top Navigation Bar -->
-    <div class="navbar"></div>
 
-    <h1>INQUISITOR</h1>
-    <h3>Alexandria Lunderman and Chris Tran</h3>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Inquisitor</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div id="container">
-    	<!-- List of items presented as 'cards' -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/newhost">Add New Host</a>
+      </li>
+    </div>
+  </nav>
+
+  <div id="container">
     	<div id="compList"></div>
-
     	<!-- Object details -->
     	<div id="info">
     		<h2>Computer Info</h2>
     	</div>
 	</div>
+
 </body>
 </html>
